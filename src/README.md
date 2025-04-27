@@ -2,7 +2,7 @@
 
 ## This plugin allows the user to undo or redo multiple times with the click of a button.
 
-[SuperUndo]("./src/SuperUndo.py")
+[SuperUndo]("[./src/SuperUndo.py](https://github.com/komispeed/Cano_TechDirectFinal2025/blob/master/src/SuperUndo.py)")
 * 3 presets for undo and redo
 * custom buttons for larger or specific amounts of undos/redos
 
