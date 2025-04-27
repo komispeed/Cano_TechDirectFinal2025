@@ -5,16 +5,16 @@ import shiboken2
 import maya.OpenMayaUI as omui
 import maya.cmds as cmds
 
-def GetMayaMainWindow() -> QMainWindow:
+def GetMayaMainWindow() -> QMainWindow:# finds maya main window and converts through shiboken
     mainWindow = omui.MQtUtil.mainWindow()
     return shiboken2.wrapInstance(int(mainWindow), QMainWindow)
 
-def DeleteWidgetWithName(name):
+def DeleteWidgetWithName(name):#deletes duplicate windows
     for widget in GetMayaMainWindow().findChildren(QWidget, name):
         widget.deleteLater()
 
-class MayaWindow(QWidget):
-    def __init__(self):
+class MayaWindow(QWidget):#window widget setup
+    def __init__(self):#contains outside window information like size, title, and visibility
         DeleteWidgetWithName(self.GetWidgetUniqueName())
         super().__init__(parent=GetMayaMainWindow())
         self.setWindowFlags(Qt.Window)
@@ -24,10 +24,10 @@ class MayaWindow(QWidget):
         self.InitUI()
         self.show()
 
-    def GetWidgetUniqueName(self):
+    def GetWidgetUniqueName(self):# gives an id to the widget
         return "shdkovcnaofojqefqiugfc"
 
-    def InitUI(self):
+    def InitUI(self):#holds inside window button functions, title, and textbox for custom buttons
         main_layout = QVBoxLayout(self)
 
         title_label = QLabel("SuperUndo", self)
@@ -68,7 +68,7 @@ class MayaWindow(QWidget):
         self.custom_amount_input.setFixedWidth(100)
         self.custom_amount_input.setAlignment(Qt.AlignCenter)
         self.custom_amount_input.setValidator(QIntValidator(1, 999))
-        main_layout.addWidget(self.custom_amount_input, alignment=Qt.AlignCenter)
+        main_layout.addWidget(self.custom_amount_input, alignment = Qt.AlignCenter)
 
         custom_buttons_layout = QHBoxLayout()
         CustomUndoBtn = QPushButton("Custom Undo", self)
@@ -79,26 +79,26 @@ class MayaWindow(QWidget):
         custom_buttons_layout.addWidget(CustomRedoBtn)
         main_layout.addLayout(custom_buttons_layout)
 
-    def custom_undo(self):
+    def custom_undo(self):#takes text input to determine amount of undos
         text = self.custom_amount_input.text()
         if text.isdigit():
             amount = int(text)
             for _ in range(amount):
                 cmds.undo()
 
-    def custom_redo(self):
+    def custom_redo(self):#takes text input to determine amount of redos
         text = self.custom_amount_input.text()
         if text.isdigit():
             amount = int(text)
             for _ in range(amount):
                 cmds.redo()
 
-    def undo_action(self, amount):
+    def undo_action(self, amount):#undoes a set amount of times depending on the preset button pressed
         for _ in range(amount):
             cmds.undo()
 
-    def redo_action(self, amount):
+    def redo_action(self, amount):#redoes a set amount of times depending on the preset button pressed
         for _ in range(amount):
             cmds.redo()
 
-MayaWindow()
+MayaWindow()#enables window to display in maya
