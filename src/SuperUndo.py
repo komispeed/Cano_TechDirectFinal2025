@@ -101,4 +101,7 @@ class MayaWindow(QWidget):#window widget setup
         for _ in range(amount):
             cmds.redo()
 
-MayaWindow()#enables window to display in maya
+
+def Run(): 
+    mayaWindow = MayaWindow()
+    mayaWindow.show()#enables window to display in maya
