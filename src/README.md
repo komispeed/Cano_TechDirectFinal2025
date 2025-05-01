@@ -5,7 +5,7 @@
 * 3 presets for undo and redo
 * custom buttons for larger or specific amounts of undos/redos
 
-##How to Install
+## How to Install
 
 Drag and drop install.mel file into maya viewport and an icon will appear on the shelf.
 
